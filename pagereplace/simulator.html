@@ -1,0 +1,50 @@
+<html>
+    <style>
+        .ac {
+            border: solid 1px #000000; 
+            width: 50px;
+            height: 50px;
+        }
+        body{
+            text-align: center;
+            font-size: 40px;
+        }
+        .mt{
+            margin-top: 50px;
+            transition: ease-in;
+            transition-delay: 2000ms;
+        }
+    </style>
+    <head>
+        <script type="text/javascript">
+            document.getElementById('button').click = function(){
+                document.getElementById('new').class = "ac mt"
+            }
+        </script>
+    </head>
+    <body>
+        <div>
+            <div class="ac" id="first">
+            
+            </div>
+            <div class="ac" id="second">
+             
+            </div>
+            <div class="ac" id="third">
+              
+            </div>
+            <div class="ac" id="forth">
+               
+            </div>
+            <div class="ac" id="fifth">
+                
+            </div>
+            <div class="ac" id="new">
+                
+            </div>
+        </div>
+        <div>
+            <input type="button" id="button">
+        </div>
+    </body>
+</html>

@@ -1,0 +1,52 @@
+[
+    {
+        "name": "name1",
+        "age": 19,
+        "salary": 1000
+    },
+    {
+        "name": "name2",
+        "age": 20,
+        "salary": 2000
+    },
+    {
+        "name": "name3",
+        "age": 21,
+        "salary": 3000
+    },
+    {
+        "name": "name4",
+        "age": 22,
+        "salary": 4000
+    },
+    {
+        "name": "name5",
+        "age": 31,
+        "salary": 5000
+    },
+    {
+        "name": "name6",
+        "age": 32,
+        "salary": 6000
+    },
+    {
+        "name": "name7",
+        "age": 39,
+        "salary": 7000
+    },
+    {
+        "name": "name8",
+        "age": 45,
+        "salary": 8000
+    },
+    {
+        "name": "name9",
+        "age": 55,
+        "salary": 19000
+    },
+    {
+        "name": "name10",
+        "age": 70,
+        "salary": 100000
+    }
+]

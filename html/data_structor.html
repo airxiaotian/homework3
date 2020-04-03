@@ -1,0 +1,135 @@
+<html>
+<style>
+    span {
+        border: solid 1px #000000;
+        font-size: 24px;
+        width: 30px;
+        text-align: center;
+    }
+</style>
+<head>
+    <script src="./vue.min.js" type="text/javascript">
+    </script>
+    <script type="text/javascript">
+        window.onload = function() {
+            var app = new Vue({
+                    el: '#app',
+                    data: {
+                        selectedType:'queue',
+                        list:[],
+                        value:'',
+                        index:'',
+                        add:'enqueue',
+                        del:'dequeue',
+                        blue:0
+                    },
+                    watch:{
+                        selectedType(){
+                            if(this.selectedType==='stack'){
+                                this.add = 'push'
+                                this.del ='pop'
+                            }else if(this.selectedType ==='queue'){
+                                this.add = 'enqueue'
+                                this.del ='dequeue'
+                            }else{
+                                this.add = 'add'
+                                this.del ='del'
+                            }
+                        }
+                    },
+                    methods: {
+                        //点击start后开始，inflag是一个布尔型，当为true的时候是增加，为false的时候是删除
+                        start(inflag){
+                            if(this.selectedType==='queue'){
+                                //队列
+                                //返回值 两个，一个是返回操作后的数组，另一个是哪一个下标的应该被标记为蓝色
+                                this.list,this.blue = this.setqueue(this.value,this.list,inflag)
+                            }else if(this.selectedType==='stack'){
+                                //栈
+                                 //返回值 两个，一个是返回操作后的数组，另一个是哪一个下标的应该被标记为蓝色
+                                this.list,this.blue = this.setstack(this.value,this.list,inflag)
+                            }else{
+                                //链表
+                                 //返回值 两个，一个是返回操作后的数组，另一个是哪一个下标的应该被标记为蓝色
+                                this.list,this.blue = this.setlist(this.value,this.list,inflag,this.index)
+                            }
+                        },
+                        //队列，先进先出，被标记蓝色的为最后一个
+                        setqueue(value, queue, inflag) {
+                            let index = 0
+                            if (inflag) {
+                                //如果是增加，往数组最后一个位置追加
+                                queue.push(value)
+                                //标记蓝色的下标为数组长度-1，即数组最后一个数
+                                index = queue.length -1
+                            } else {
+                                //如果是删除，删除第一个
+                                //splice(要删除的数的下标，删除次数) 这个方法的用法
+                                queue.splice(0, 1)
+                                index = -1
+                            }
+                            return queue,index
+                        },
+                        //栈是后进先出的
+                        setstack(value, stack, inflag) {
+                            let index = 0
+                            if (inflag) {
+                                //增加的时候往最后一位插入新的数
+                                stack.push(value)
+                                //标记为蓝色的是最后一个
+                                index = stack.length -1
+                            } else {
+                                //删除的时候也是删除最后一个
+                                stack.splice(stack.length - 1, 1)
+                                index = -1
+                            }
+                            return stack,index
+                        },
+                        //链标可以随意选择需要插入和删除的位置
+                        setlist(value, list, inflag, index) {
+                            if (inflag) {
+                                //增加的时候，先往最后一位插入，然后再把插入的数放到Index的位置
+                                list.push(value)
+                                for(let i = list.length - 1;i>index;i--){
+                                    list[i] = list[i-1] 
+                                }
+                                list[index] = value
+                            } else {
+                                //除的时候删除输入的index的位置的数
+                                list.splice(index, 1)
+                                index = -1
+                            }
+                            return list,index
+                        }
+                    }
+                }
+            )
+        }
+    </script>
+</head>
+<!-- 下面是纯html 一般不需要解释-->
+<body>
+    <div id="app">
+        <div>
+            <label><input name="pr" type="radio" value ="queue" v-model="selectedType" >queue</label>
+            <label><input name="pr" type="radio" value ="stack" v-model="selectedType">stack</label>
+            <label><input name="pr" type="radio" value ="linked_list" v-model="selectedType">linked list</label>
+        </div>
+        <div>
+            <label>value:</label><input type="text" style="width: 30px;" v-model="value">
+            <label v-show = "selectedType==='linked_list'">index:</label><input type="text" style="width: 30px;" v-model="index"  v-show = "selectedType==='linked_list'">
+        </div>
+        <div>
+            <input type="button" :value="add" @click="start(true)">
+            <input type="button" :value="del" @click="start(false)">
+        </div>
+        <div style="margin-top:30px">   
+            <span>head</span>
+            →
+            <label v-for="(item,index) in list"><span :style="index==blue?'color:red;':''">{{item}}</span>→</label>
+            <span>tail</span>
+        </div>
+    </div>
+</body>
+
+</html>
